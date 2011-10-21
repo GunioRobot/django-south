@@ -78,8 +78,8 @@ Parameters
    ``{'ignore_if': 'primary_key'}``, since it's always True in that case.
  - is_value: If present, the 'attribute name' is instead used directly as the
    value. See :ref:`above <is-value-keyword>` for more info.
- 
- 
+
+
 Field name patterns
 -------------------
 
@@ -98,7 +98,7 @@ Example (this is the default South list)::
 
 Examples
 --------
-    
+
 For an example, see the GeoDjango rules module in South core,
 or even the core rules in the inspector module.
 

@@ -144,7 +144,7 @@ def add_ignored_fields(patterns):
     "Allows you to add some ignore field patterns."
     assert isinstance(patterns, (list, tuple))
     ignored_fields.extend(patterns)
-    
+
 def can_ignore(field):
     """
     Returns True if we know for certain that we can ignore this field, False
@@ -283,22 +283,22 @@ def get_model_fields(model, m2m=False):
     """
     Given a model class, returns a dict of {field_name: field_triple} defs.
     """
-    
+
     field_defs = SortedDict()
     inherited_fields = {}
-    
+
     # Go through all bases (that are themselves models, but not Model)
     for base in model.__bases__:
         if base != models.Model and issubclass(base, models.Model):
             if not base._meta.abstract:
                 # Looks like we need their fields, Ma.
                 inherited_fields.update(get_model_fields(base))
-    
+
     # Now, go through all the fields and try to get their definition
     source = model._meta.local_fields[:]
     if m2m:
         source += model._meta.local_many_to_many
-    
+
     for field in source:
         # Can we ignore it completely?
         if can_ignore(field):
@@ -321,7 +321,7 @@ def get_model_fields(model, m2m=False):
             if NOISY:
                 print " ( Nodefing field: %s" % field.name
             field_defs[field.name] = None
-    
+
     return field_defs
 
 
@@ -329,7 +329,7 @@ def get_model_meta(model):
     """
     Given a model class, will return the dict representing the Meta class.
     """
-    
+
     # Get the introspected attributes
     meta_def = {}
     for kwd, defn in meta_details.items():
@@ -337,7 +337,7 @@ def get_model_meta(model):
             meta_def[kwd] = get_value(model._meta, defn)
         except IsDefault:
             pass
-    
+
     return meta_def
 
 

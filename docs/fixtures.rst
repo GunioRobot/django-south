@@ -29,7 +29,7 @@ so it looks like this::
     def forwards(self, orm):
         from django.core.management import call_command
         call_command("loaddata", "my_fixture.json")
- 
+
 (you'll have to leave backwards() empty,
 as there's no much you can do to reverse this).
 

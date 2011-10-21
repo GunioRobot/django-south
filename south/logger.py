@@ -16,7 +16,7 @@ _logger.setLevel(logging.DEBUG)
 def get_logger():
     debug_on = getattr(settings, "SOUTH_LOGGING_ON", False)
     logging_file = getattr(settings, "SOUTH_LOGGING_FILE", False)
-    
+
     if debug_on:
         if logging_file:
             _logger.addHandler( logging.FileHandler(logging_file) )

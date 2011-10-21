@@ -11,7 +11,7 @@ ways to make a migration that changes the database schema:
  - Automatic detection of changes - South can examine the state of your models
    from the previous migration and the current state, and make a migration
    to match.
- - Explicitly telling startmigration what to add - using things like 
+ - Explicitly telling startmigration what to add - using things like
    ``--add-model`` and ``--add-field``.
  - Manually writing more advanced operations in Python.
 
@@ -75,15 +75,15 @@ that migration.)
 Here's the new ``models.py``::
 
  from django.db import models
- 
+
  class Lizard(models.Model):
-     
+
      age = models.IntegerField(null=True, blank=True)
      length = models.FloatField(default=-1)
      name = models.CharField(max_length=30)
- 
+
  class Adopter(models.Model):
-     
+
      lizard = models.ForeignKey(Lizard)
      name = models.CharField(max_length=50)
 
@@ -112,7 +112,7 @@ the thing ``--auto`` compares with is that massive models dict at the bottom of
 the migration file, not the actual operations, and if you look,
 that will still have your changes in it.
 
-If the process detected schema changes you didn't want to apply yet, rather 
+If the process detected schema changes you didn't want to apply yet, rather
 than erroneous ones, then you should delete the new migration file, undo the
 changes to your models you don't want migrated, and recreate it; there's
 currently no way to select a subset of actions to include.
@@ -168,7 +168,7 @@ to the migration writer:
 
  - The :ref:`database-api`, which offers a convenient and database-agnostic API
    to common database manipulation commands.
- 
+
  - The :ref:`ORM Freezer <orm-freezing>`, which allows you to access models from
    within migrations as they were at the time the migration was written.
 

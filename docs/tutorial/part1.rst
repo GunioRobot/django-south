@@ -49,7 +49,7 @@ migrations, there are a few important commands
    changes - we will cover all three of these uses.
  - ``./manage.py datamigration`` - Creates data migrations for apps. We'll cover
    these in a later part.
-  
+
 
 Kicking Off
 -----------
@@ -65,18 +65,18 @@ Second, you will need an app, with a few models. It doesn't matter what;
 if you want to follow the examples, make a new app called 'southdemo'::
 
   django-admin.py startapp southdemo
-  
+
 Give it the following models.py file::
 
   from django.db import models
-  
+
   class Lizard(models.Model):
-      
+
       age = models.IntegerField()
       name = models.CharField(max_length=30)
-  
+
   class Adopter(models.Model):
-      
+
       lizard = models.ForeignKey(Lizard)
       name = models.CharField(max_length=50)
 
@@ -84,7 +84,7 @@ Don't forget to update settings.py too:
 
  - Pick a ``DATABASE_ENGINE``, and set the relevant settings;
  - Add both 'south' and 'southdemo' to the list of ``INSTALLED_APPS``.
- 
+
 Now, we need to make our first migration. The way South works is that, on a
 new installation, it will run through the entire history of migrations for each
 app, rather than just using syncdb. This helps keep things consistent, and lets
@@ -95,7 +95,7 @@ from blank to the most recent schema.
 Specifically, this means that ``./manage.py migrate`` replaces ``./manage.py syncdb``
 for applications with migrations; the effect of syncdb is recreated by the
 migrations. You should not run syncdb on an application before you migrate it,
-if it is a new app (if you are converting an existing app, see 
+if it is a new app (if you are converting an existing app, see
 :ref:`converting-an-app`).
 
 For this reason, the first migration has to be one that creates all the models
@@ -111,7 +111,7 @@ However, there is a shortcut for adding all models currently in the models.py
 file, which is --initial::
 
  ./manage.py schemamigration southdemo --initial
- 
+
 *(You can also pass in a migration name here, but it will default to 'initial')*
 
 Running this, we get::
@@ -127,17 +127,17 @@ As you can see, it has made our southdemo/migrations directory for us, as well
 as putting an __init__.py file in it (to mark it as a Python package
 - this is also required).
 
-If you open up the migration file it made - 
+If you open up the migration file it made -
 `southdemo/migrations/0001_initial.py` - you'll see something like this::
 
   from south.db import db
   from django.db import models
   from southdemo.models import *
-  
+
   class Migration:
-      
+
       def forwards(self, orm):
-          
+
           # Adding model 'Lizard'
           db.create_table('southdemo_lizard', (
               ('age', models.IntegerField()),
@@ -145,7 +145,7 @@ If you open up the migration file it made -
               ('name', models.CharField(max_length=30)),
           ))
           db.send_create_signal('southdemo', ['Lizard'])
-          
+
           # Adding model 'Adopter'
           db.create_table('southdemo_adopter', (
               ('lizard', models.ForeignKey(orm.Lizard)),
@@ -153,21 +153,21 @@ If you open up the migration file it made -
               ('name', models.CharField(max_length=50)),
           ))
           db.send_create_signal('southdemo', ['Adopter'])
-          
-      
-      
+
+
+
       def backwards(self, orm):
-          
+
           # Deleting model 'Lizard'
           db.delete_table('southdemo_lizard')
-          
+
           # Deleting model 'Adopter'
           db.delete_table('southdemo_adopter')
-      
-  
-      
+
+
+
       models = { ... }
-  
+
 Migrations in South are, as you can see, just Migration classes with forwards()
 and backwards() methods, which get run as you go forwards or backwards over the
 migration respectively.

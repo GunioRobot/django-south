@@ -16,11 +16,11 @@ certain migration first; for example, if my app "forum" depends on the
 
     # forum/migrations/0002_post.py
     class Migration:
-        
+
         depends_on = (
             ("accounts", "0003_add_user_profile"),
         )
-    
+
         def forwards(self):
             ....
 
@@ -48,10 +48,10 @@ if you're trying to run a migration before another in a separate, third-party
 Declaring these is just like the other kind, except you use needed_by::
 
     class Migration:
-        
+
         needed_by = (
             ("accounts", "0005_make_fks"),
         )
-    
+
         def forwards(self):
             ....

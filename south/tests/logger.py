@@ -5,7 +5,7 @@ from django.db import connection, models
 
 from south.db import db
 
-# 
+#
 # # Create a list of error classes from the various database libraries
 # errors = []
 # try:
@@ -23,7 +23,7 @@ class TestLogger(unittest.TestCase):
     def setUp(self):
         db.debug = False
         self.test_path = os.path.join(os.path.dirname(__file__),"test.log")
-        
+
     def test_db_execute_logging_nofile(self):
         """ Does logging degrade nicely if SOUTH_DEBUG_ON not set?
         """
@@ -32,16 +32,16 @@ class TestLogger(unittest.TestCase):
                                               # set this to True. settings is shared
                                               # between these tests.
         db.create_table("test9", [('email_confirmed', models.BooleanField(default=False))])
-        
+
     def test_db_execute_logging_validfile(self):
         """ Does logging work when passing in a valid file?
         """
         settings.SOUTH_LOGGING_ON = True
         settings.SOUTH_LOGGING_FILE = self.test_path
         db.create_table("test10", [('email_confirmed', models.BooleanField(default=False))])
-        
+
         # remove the test log file
-        os.remove(self.test_path) 
+        os.remove(self.test_path)
 
     def test_db_execute_logging_missingfilename(self):
         """ Does logging raise an error if there is a missing filename?
@@ -50,5 +50,4 @@ class TestLogger(unittest.TestCase):
         settings.SOUTH_LOGGING_FILE = None
         self.assertRaises(IOError,
             db.create_table, "test11", [('email_confirmed', models.BooleanField(default=False))])
-        
-        
+

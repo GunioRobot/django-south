@@ -16,7 +16,7 @@ backwards through the series of migrations for any given app.
 The most common use is::
 
  ./manage.py migrate myapp
- 
+
 This will migrate the app myapp forwards through all the migrations.
 If you want to migrate all the apps at once, run::
 
@@ -180,8 +180,8 @@ Note that you can combine as many ``--add-X`` options as you like.
  - ``--auto``: Generates a migration with automatically-detected actions.
  - ``--stdout``: Writes the migration to stdout instead of a file.
 
-.. _commands-datamigration: 
- 
+.. _commands-datamigration:
+
 datamigration
 -------------
 
@@ -191,7 +191,7 @@ When you want to create a data migration, use this command to create a blank
 template to write your migration with::
 
  ./manage.py datamigration books capitalise_titles
- 
+
 You can also freeze in additional apps if you want::
 
  ./manage.py datamigration books capitalise_titles --freeze awards

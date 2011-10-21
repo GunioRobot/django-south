@@ -19,7 +19,7 @@ Contents
 
 .. toctree::
    :maxdepth: 2
-   
+
    whataremigrations
    tutorial/index
    databaseapi

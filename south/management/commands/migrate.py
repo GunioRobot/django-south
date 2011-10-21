@@ -51,7 +51,7 @@ class Command(BaseCommand):
 
         # Work out what the resolve mode is
         resolve_mode = merge and "merge" or (skip and "skip" or None)
-        
+
         # NOTE: THIS IS DUPLICATED FROM django.core.management.commands.syncdb
         # This code imports any module named 'management' in INSTALLED_APPS.
         # The 'management' module is the preferred way of listening to post_syncdb
@@ -65,7 +65,7 @@ class Command(BaseCommand):
                 if not msg.startswith('No module named') or 'management' not in msg:
                     raise
         # END DJANGO DUPE CODE
-        
+
         # if all_apps flag is set, shift app over to target
         if options.get('all_apps', False):
             target = app
@@ -81,13 +81,13 @@ class Command(BaseCommand):
                 return
         else:
             apps = list(migration.all_migrations())
-        
+
         # Do we need to show the list of migrations?
         if show_list and apps:
             list_migrations(apps, database)
-        
+
         if not show_list:
-            
+
             for app in apps:
                 result = migration.migrate_app(
                     app,

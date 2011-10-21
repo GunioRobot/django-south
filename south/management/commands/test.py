@@ -15,7 +15,7 @@ class MigrateAndSyncCommand(SyncDbCommand):
 
 
 class Command(test.Command):
-    
+
     def handle(self, *args, **kwargs):
         management.get_commands()
         if hasattr(settings, "SOUTH_TESTS_MIGRATE") and not settings.SOUTH_TESTS_MIGRATE:

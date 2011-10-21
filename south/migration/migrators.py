@@ -25,7 +25,7 @@ class Migrator(object):
     def print_title(self, target):
         if self.verbosity:
             print self.title(target)
-        
+
     @staticmethod
     def status(target):
         raise NotImplementedError()

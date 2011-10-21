@@ -34,9 +34,9 @@ defined above) for each database alias in your configuration file::
 
  from south.db import dbs
  dbs['users'].create_table(...)
- 
+
 You can tell which backend you're talking to inside of a migration by examining
-``db.backend_name`` - it will be one of ``postgres``, ``mysql``, ``sqlite3``, 
+``db.backend_name`` - it will be one of ``postgres``, ``mysql``, ``sqlite3``,
 ``pyodbc`` or ``oracle``.
 
 
@@ -58,11 +58,11 @@ all database backends.
  - SQLite doesn't natively support much schema altering at all, but South
    has workarounds to allow deletion/altering of columns. Unique indexes are
    still unsupported, however; South will silently ignore any such commands.
- 
+
  - SQL Server has been supported for a while, and works in theory, but the
    implementation itself may have bugs, as it's a contributed module and isn't
    under primary development. Patches and bug reports are welcome.
- 
+
  - Oracle is a new module as of the 0.7 release, and so is very much alpha.
    The most common operations work, but others may be missing completely;
    we welcome bug reports and patches against it (as with all other modules).
@@ -77,7 +77,7 @@ to see how to get access to the ``db`` object.
 .. contents::
    :local:
    :depth: 1
- 
+
 
 
 db.add_column
@@ -86,7 +86,7 @@ db.add_column
 ::
 
  db.add_column(table_name, field_name, field, keep_default=True)
- 
+
 Adds a column called ``field_name`` to the table ``table_name``, of the type
 specified by the field instance field.
 
@@ -132,7 +132,7 @@ db.alter_column
 ::
 
  db.alter_column(table_name, column_name, field, explicit_name=True)
- 
+
 Alters the column ``column_name`` on the table ``table_name`` to match
 ``field``. Note that this cannot alter all field attributes; for example, if
 you want to make a field ``unique=True``, you should instead use
@@ -181,7 +181,7 @@ Examples
 Clear all cached geocode results, as the schema is changing::
 
  db.clear_table('core_geocoded')
- db.add_column('core_geocoded', ...) 
+ db.add_column('core_geocoded', ...)
 
 
 
@@ -191,7 +191,7 @@ db.commit_transaction
 ::
 
  db.commit_transaction()
- 
+
 Commits the transaction started at a ``db.start_transaction`` call.
 
 
@@ -202,7 +202,7 @@ db.create_index
 ::
 
  db.create_index(table_name, column_names, unique=False, db_tablespace='')
- 
+
 Creates an index on the list of columns ``column_names`` on the table
 ``table_name``.
 
@@ -219,7 +219,7 @@ Examples
 Creating an index on the 'name' column::
 
  db.create_index('core_profile', ['name'])
- 
+
 Creating a unique index on the combination of 'name' and 'age' columns::
 
  db.create_index('core_profile', ['name', 'age'], unique=True)
@@ -232,7 +232,7 @@ db.create_primary_key
 ::
 
  db.create_primary_key(table_name, columns)
- 
+
 Creates a primary key spanning the given ``columns`` for the table. Remember,
 you can only have one primary key per table; use ``db.delete_primary_key``
 first if you already have one.
@@ -244,11 +244,11 @@ Swapping from the ``id`` to ``uuid`` as a primary key::
 
  db.delete_primary_key('core_upload')
  db.create_primary_key('core_upload', ['uuid'])
- 
+
 Adding a new composite primary key on "first name" and "last name"::
 
  db.create_primary_key('core_people', ['first_name', 'last_name'])
- 
+
 
 
 db.create_table
@@ -258,7 +258,7 @@ db.create_table
 
  db.create_table(table_name, fields)
  fields = ((field_name, models.SomeField(somearg=4)), ...)
- 
+
 This call creates a table called *table_name* in the database with the schema
 specified by *fields*, which is a tuple of ``(field_name, field_instance)``
 tuples.
@@ -278,7 +278,7 @@ A simple table, with one field, name, and the default id column::
      ('id', models.AutoField(primary_key=True)),
      ('name', models.CharField(unique=True, max_length=50)),
  ))
- 
+
 A more complex table, which uses the ORM Freezer for its foreign keys::
 
  db.create_table('core_nation', (
@@ -299,7 +299,7 @@ db.create_unique
 ::
 
  create_unique(table_name, columns)
- 
+
 Creates a unique index or constraint on the list of columns ``columns`` on the
 table ``table_name``.
 
@@ -318,7 +318,7 @@ db.delete_column
 ::
 
  db.delete_column(table_name, column_name)
- 
+
 Deletes the column ``column_name`` from the table ``table_name``.
 
 Examples
@@ -336,7 +336,7 @@ db.delete_foreign_key
 ::
 
  delete_foreign_key(table_name, column)
- 
+
 Drops any foreign key constraints on the given column, if the database backend
 supported them in the first place.
 
@@ -355,7 +355,7 @@ db.delete_primary_key
 ::
 
  db.delete_primary_key(table_name)
- 
+
 Deletes the current primary key constraint on the table. Does not remove the
 columns the primary key was using.
 
@@ -366,9 +366,9 @@ Swapping from the ``id`` to ``uuid`` as a primary key::
 
  db.delete_primary_key('core_upload')
  db.create_primary_key('core_upload', ['uuid'])
- 
 
- 
+
+
 db.delete_table
 ^^^^^^^^^^^^^^^
 
@@ -398,7 +398,7 @@ db.delete_unique
 ::
 
  delete_unique(table_name, columns)
- 
+
 Deletes a unique index or constraint on the list of columns ``columns`` on the
 table ``table_name``. The constraint/index. must already exist.
 
@@ -418,7 +418,7 @@ db.execute
 ::
 
  db.execute(sql, params=[])
- 
+
 Executes the **single** raw SQL statement ``sql`` on the database; optionally
 use params to replace the %s instances in sql (this is the recommended way of
 doing parameters, as it escapes them correctly for all databases).
@@ -453,7 +453,7 @@ db.execute_many
 ::
 
  db.execute_many(sql, regex=r"(?mx) ([^';]* (?:'[^']*'[^';]*)*)", comment_regex=r"(?mx) (?:^\s*$)|(?:--.*$)")
- 
+
 Executes the given multi-statement SQL string ``sql``. The two parameters are
 the regular expressions for splitting up statements (``regex``) and removing
 comments (``comment_regex``). We recommend you leave these at their default
@@ -478,7 +478,7 @@ db.rename_column
 ::
 
  db.rename_column(table_name, column_name, new_column_name)
- 
+
 Renames the column ``column_name`` in table ``table_name`` to
 ``new_column_name``.
 
@@ -489,7 +489,7 @@ Simple rename::
 
  db.rename_column('core_nation', 'name', 'title')
 
- 
+
 
 db.rename_table
 ^^^^^^^^^^^^^^^
@@ -519,7 +519,7 @@ db.rollback_transaction
 ::
 
  db.rollback_transaction()
- 
+
 Rolls back the transaction started at a ``db.start_transaction`` call.
 
 
@@ -530,7 +530,7 @@ db.send_create_signal
 ::
 
  db.send_create_signal(app_label, model_names)
- 
+
 Sends the post_syncdb signal for the given models ``model_names`` in the app
 ``app_label``.
 
@@ -560,9 +560,9 @@ db.start_transaction
 ::
 
  db.start_transaction()
- 
+
 Wraps the following code (until it meets a ``db.rollback_transaction`` or
 ``db.commit_transaction`` call) in a transaction.
 
- 
+
 

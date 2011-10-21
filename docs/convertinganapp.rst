@@ -8,13 +8,13 @@ Converting an app to use South is very easy:
 
  - Edit your settings.py and put 'south' into `INSTALLED_APPS`
    (assuming you've installed it to the right place)
- 
+
  - Run ``./manage.py syncdb`` to load the South table into the database.
    Note that syncdb looks different now - South modifies it.
 
  - Run ``./manage.py convert_to_south myapp`` - South will automatically make and
    pretend to apply your first migration.
- 
+
 Converting other installations and servers
 ------------------------------------------
 
